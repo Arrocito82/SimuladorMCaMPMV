@@ -38,15 +38,21 @@ TagManager:
   - 
   - 
   m_SortingLayers:
-  - name: Default
-    uniqueID: 0
-    locked: 0
   - name: Background
     uniqueID: 2098494037
     locked: 0
   - name: Roadmap
     uniqueID: 2754710253
     locked: 0
+  - name: Caminos
+    uniqueID: 1234737279
+    locked: 0
+  - name: Castillos
+    uniqueID: 1430038287
+    locked: 0
   - name: UI
     uniqueID: 1086291235
+    locked: 0
+  - name: Default
+    uniqueID: 0
     locked: 0
