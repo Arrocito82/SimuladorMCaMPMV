@@ -27,16 +27,16 @@ public class Direccion : MonoBehaviour
 
     }
 
-    public void addDireccionMemoriaVirtual()
-    {
-        memoriaVirtual.addDireccionMemoriaVirtual(direccionText.text);
+    //public void addDireccionMemoriaVirtual()
+    //{
+    //    memoriaVirtual.addDireccionMemoriaVirtual(direccionText.text);
         
-    }
-    public void deleteDireccionMemoriaVirtual()
-    {
-        memoriaVirtual.deleteDireccionMemoriaVirtual(int.Parse(direccionText.text));
+    //}
+    //public void deleteDireccionMemoriaVirtual()
+    //{
+    //    memoriaVirtual.deleteDireccionMemoriaVirtual(int.Parse(direccionText.text));
 
-    }
+    //}
     //public void addDireccionMemoriaPrincipal()
     //{
     //    DireccionMemoriaPrincipal direccionMemoriaPrincipal = new DireccionMemoriaPrincipal(direccionText.text);
