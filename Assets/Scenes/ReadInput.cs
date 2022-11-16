@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class ReadInput : MonoBehaviour
 {
-    private string input;
+    private string direccion;
     // Start is called before the first frame update
     void Start()
     {
@@ -17,8 +17,17 @@ public class ReadInput : MonoBehaviour
         
     }
 
-    public void ReadStringInput(string direccion ){
-        input=direccion;
-        Debug.Log(input);
+    public void ReadStringInput(string input ){
+        direccion=input;
+        // AgregarDireccion(direccion);
+    }
+
+    public void AgregarDireccion(string input){
+        List<string> direcciones = new List<string>();
+        direcciones.Add(direccion);
+        foreach (string d in direcciones)
+        {
+            Debug.Log(d);
+        }
     }
 }
