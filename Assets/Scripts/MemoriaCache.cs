@@ -19,9 +19,8 @@ public class MemoriaCache : MonoBehaviour
             GameObject direccionItem = Instantiate(direccionTemplate, this.transform);
             direccionItem.transform.GetChild(0).GetComponent<Text>().text = $"{i:X}";
             direccionItem.transform.GetChild(1).GetComponent<Text>().text = $"{i:X}";
-            for(int j = 0; j <8;j++) {
-                direccionItem.transform.GetChild(2).GetComponent<Text>().text = $"{j:X}";
-            }
+            direccionItem.transform.GetChild(2).GetComponent<Text>().text = $"{i:X}";
+           
             direccionMemoriaCache.Add(new Tuple<int, int, int, int, int, int, int,GameObject>(i, i,i,i,i,i,i, direccionItem));
         }
         Destroy(direccionTemplate);
