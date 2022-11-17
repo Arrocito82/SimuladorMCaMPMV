@@ -11,6 +11,16 @@ public class Direccion : MonoBehaviour
     [SerializeField] private GameObject direccionInputField;
     [SerializeField] private GameObject memoriaVirtualContentScrollView;
     MemoriaVirtual memoriaVirtual;
+    //Memoria CachÃ©
+    private string bloque;
+    private string linea;
+    private Text bloqueText;
+    private Text lineaText;
+    [SerializeField] private GameObject bloqueInputField;
+    [SerializeField] private GameObject lineaInputField;
+    [SerializeField] private GameObject memoriaCacheContentScrollView;
+    MemoriaCache memoriaCache;
+
     //[SerializeField] private GameObject memoriaPrincipalScrollView;
     //[SerializeField] private GameObject memoriaCacheScrollView;
     //private List<DireccionMemoriaCache> direccionesMemoriaCache;
@@ -24,10 +34,13 @@ public class Direccion : MonoBehaviour
         //direccionesMemoriaPrincipal = new List<DireccionMemoriaPrincipal>();
         
         //direccionesMemoriaCache = new List<DireccionMemoriaCache>();
+        bloqueText=bloqueInputField.GetComponent<Text>();
+        lineaText=lineaInputField.GetComponent<Text>();
+        memoriaCache= memoriaCacheContentScrollView.GetComponent<MemoriaCache>();
 
     }
 
-    public void addDireccionMemoriaVirtual()
+    /* public void addDireccionMemoriaVirtual()
     {
         memoriaVirtual.addDireccionMemoriaVirtual(direccionText.text);
         
@@ -36,13 +49,14 @@ public class Direccion : MonoBehaviour
     {
         memoriaVirtual.deleteDireccionMemoriaVirtual(int.Parse(direccionText.text));
 
-    }
+    } */
+
     //public void addDireccionMemoriaPrincipal()
     //{
     //    DireccionMemoriaPrincipal direccionMemoriaPrincipal = new DireccionMemoriaPrincipal(direccionText.text);
-    //    // agregando la nueva dirección
+    //    // agregando la nueva direcciï¿½n
     //    direccionesMemoriaPrincipal.Add(direccionMemoriaPrincipal);
-    //    // limpiando input field dirección
+    //    // limpiando input field direcciï¿½n
     //    direccionText.text = "";
     //    // limpiando el scroll view
     //    memoriaPrincipalScrollView.GetComponent<Text>().text = "";
@@ -57,9 +71,9 @@ public class Direccion : MonoBehaviour
     //public void addDireccionMemoriaCache()
     //{
     //    DireccionMemoriaCache direccionMemoriaCache = new DireccionMemoriaCache(direccionInputField.GetComponent<Text>().text);
-    //    // agregando la nueva dirección
+    //    // agregando la nueva direcciï¿½n
     //    direccionesMemoriaCache.Add(direccionMemoriaCache);
-    //    // limpiando input field dirección
+    //    // limpiando input field direcciï¿½n
     //    direccionInputField.GetComponent<Text>().text = "";
     //    // limpiando el scroll view
     //    memoriaCacheScrollView.GetComponent<Text>().text = "";
