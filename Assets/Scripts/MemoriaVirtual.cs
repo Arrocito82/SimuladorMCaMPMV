@@ -32,7 +32,7 @@ public class MemoriaVirtual : MonoBehaviour
             GameObject direccionItem = Instantiate(direccionTemplate, this.transform);
             direccionItem.transform.GetChild(0).GetComponent<Text>().text = $"{contadorPagina:X2}";
             direccionItem.transform.GetChild(1).GetComponent<Text>().text = $"{contadorDesplazamiento:X2}";
-            direccionItem.transform.GetChild(2).GetComponent<Text>().text = $"{dato.Next():X2}";
+            direccionItem.transform.GetChild(2).GetComponent<Text>().text = $"{dato.Next(0,256):X2}";
             direccionesMemoriaVirtual.Add(new Tuple<int,int, GameObject>(contadorPagina, contadorDesplazamiento, direccionItem));
 
             // set contadores
