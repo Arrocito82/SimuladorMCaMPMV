@@ -51,6 +51,9 @@ public class MemoriaCache : MonoBehaviour
         string bloqueString=this.bloque.text;
         int valueLinea = 0x0;
         int bloqueConv = 0x0;
+        Tuple<int, int, GameObject, Tuple<int, int, int, int>, Tuple<int, int, int, int>> lineaBuscada;
+        Tuple<int, int, GameObject, Tuple<int, int, int, int>, Tuple<int, int, int, int>> bloqueRecuperado;
+        GameObject direccionItemActualizado;
         try
         {
             valueLinea = int.Parse(lineaString, System.Globalization.NumberStyles.HexNumber);
@@ -60,26 +63,27 @@ public class MemoriaCache : MonoBehaviour
             {
                 throw new Exception($"Línea {valueLinea:X} debe ser menor a {maximoDireccionableMC:X}");
             }
-            if (bloqueConv >= memoriaPrincipalControler.maximoDireccionableMP / tamanoBloque)
+            if (bloqueConv >= 0x80)
             {
-                throw new Exception($"Bloque {bloqueConv:X} debe ser menor a {memoriaPrincipalControler.maximoDireccionableMP / tamanoBloque:X}");
+                //el máximo de bloques es 32 decimal= 20 hexadecimal
+                throw new Exception($"Bloque {bloqueConv:X} debe ser menor a {0x80:X}");
             }
-            Tuple<int, int, GameObject, Tuple<int, int, int, int>, Tuple<int, int, int, int>>lineaBuscada= this.direccionMemoriaCache[valueLinea];
+            lineaBuscada= this.direccionMemoriaCache[valueLinea];
             if( bloqueConv==lineaBuscada.Item1)
             {
-                Debug.Log("Acierto");
-                Debug.Log(lineaBuscada);
+                Debug.Log("Acierto Memoria Caché");
+                Debug.Log(lineaBuscada);// es null
             }
             else // comprobando que el bloque si es válido
             {
-                Debug.Log("Fallo");
+                Debug.Log("Fallo Memoria Caché");
 
                 // recuperando línea cache de la memoria principal
-                Tuple<int, int, GameObject, Tuple<int, int, int, int>, Tuple<int, int, int, int>> bloqueRecuperado=this.BusquedaMemoriaPrincipalFake(bloqueConv);
+                bloqueRecuperado=this.BusquedaMemoriaPrincipalFake(bloqueConv);
                 // actualizando memoria cache
                 direccionMemoriaCache[bloqueRecuperado.Item2] = bloqueRecuperado;
                 // actualizando item en view
-                GameObject direccionItemActualizado = bloqueRecuperado.Item3;
+                direccionItemActualizado = bloqueRecuperado.Item3;
                 direccionItemActualizado.transform.GetChild(0).GetComponent<Text>().text = $"{bloqueRecuperado.Item1:X1}";// asignando etiqueta
                 direccionItemActualizado.transform.GetChild(2).GetComponent<Text>().text = $"{bloqueRecuperado.Item4.Item1:X2}";// asignando dato 1
                 direccionItemActualizado.transform.GetChild(3).GetComponent<Text>().text = $"{bloqueRecuperado.Item4.Item2:X2}";
@@ -92,7 +96,8 @@ public class MemoriaCache : MonoBehaviour
 
 
             }
-        }catch(Exception e)
+        }
+        catch (Exception e)
         {
             Debug.Log($"Formato de Bloque o Línea Inválido, debe ser hexadecimal.\n{e.Message:s}");
         }
@@ -120,14 +125,5 @@ public class MemoriaCache : MonoBehaviour
         // Dado que hay 8 palabras por bloque y 8 líneas en la cache
         return bloque % maximoDireccionableMC;
     }
-    //método para agregar la direccion de la memoria caché
-    /* public void addDireccionMemoriaCache(string etiqueta, string bloque, string desplazamiento){
-        GameObject direccionItem=Instantiate(direccionTemplate, this.transform);
-        direccionItem.transform.GetChild(0).GetComponent<Text>().text = etiqueta;
-        direccionItem.transform.GetChild(1).GetComponent<Text>().text = bloque;
-        direccionItem.transform.GetChild(2).GetComponent<Text>().text = desplazamiento;
-    }
-    public void deleteDireccionMemoriaCache(int index){
-        Destroy(this.transform.GetChild(index).gameObject);
-    } */
+
 }

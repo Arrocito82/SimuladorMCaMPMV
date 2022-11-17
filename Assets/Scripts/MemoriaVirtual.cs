@@ -53,28 +53,5 @@ public class MemoriaVirtual : MonoBehaviour
         
     }
    
-    // Start is called before the first frame update
-    void Start()
-    {
-       
-    }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-    //public void addDireccionMemoriaVirtual(int pagina, int desplazamiento)
-    //{
-
-    //    DireccionMemoriaVirtual currentDireccion = new DireccionMemoriaVirtual(pagina, desplazamiento);
-    //    //direccionesMemoriaVirtual.Add(currentDireccion);// eliminando de la lista
-    //}
-    //public void deleteDireccionMemoriaVirtual(int pagina, int desplazamiento)
-    //{
-    //    DireccionMemoriaVirtual currentDireccion = new DireccionMemoriaVirtual(pagina, desplazamiento);
-
-    //    direccionesMemoriaVirtual.Remove(currentDireccion);// eliminando de la lista
-    //    //Destroy(this.transform.GetChild(index).gameObject);//probando eliminar un elemento del array del view
-    //}
 }
