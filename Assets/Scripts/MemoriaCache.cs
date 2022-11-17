@@ -14,7 +14,8 @@ public class MemoriaCache : MonoBehaviour
     [SerializeField] private GameObject bloqueTextField;
     [SerializeField] private GameObject lineaTextField;
     private Text bloque, linea;
-    [SerializeField] private GameObject memoriaPrincipal;
+    // [SerializeField] private GameObject memoriaPrincipal;
+    MemoriaPrincipal memoriaPrincipal= new MemoriaPrincipal();
     private void Awake()
     {
         direccionMemoriaCache = new List<Tuple<int, int, GameObject, Tuple<int, int, int, int>, Tuple<int, int, int, int>>>();
@@ -56,16 +57,12 @@ public class MemoriaCache : MonoBehaviour
         }
         else{
             Debug.Log("Fallo");
-            Debug.Log(this.BusquedaMemoriaPrincipal());
+            Debug.Log(memoriaPrincipal.BusquedaMemoriaPrincipal(bloqueConv));
 
         }
     }
 
-    public Tuple<int, int, GameObject, Tuple<int, int, int, int>, Tuple<int, int, int, int>> BusquedaMemoriaPrincipal(){
-        direccionTemplate=this.transform.GetChild(0).gameObject;
-        Tuple<int, int, int, int> datos = new Tuple<int, int, int, int>(1, 2, 3, 4);
-        return new Tuple<int, int, GameObject, Tuple<int, int, int, int>, Tuple<int, int, int, int>> (1, 2, direccionTemplate, datos, datos);
-    }
+    
     //método para agregar la direccion de la memoria caché
     /* public void addDireccionMemoriaCache(string etiqueta, string bloque, string desplazamiento){
         GameObject direccionItem=Instantiate(direccionTemplate, this.transform);
