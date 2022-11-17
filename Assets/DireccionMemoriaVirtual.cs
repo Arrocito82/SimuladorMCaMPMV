@@ -4,33 +4,32 @@ using UnityEngine;
 
 public class DireccionMemoriaVirtual : MonoBehaviour
 {
-    private string direccion;
     private int pagina;
     private int desplazamiento;
-    public DireccionMemoriaVirtual(string direccion)
+    public DireccionMemoriaVirtual(int pagina, int desplazamiento)
     {
-        this.direccion = direccion;
+        this.pagina=pagina;
+        this.desplazamiento = desplazamiento;
+
     }
-    // Start is called before the first frame update
-    void Start()
+    
+    public int getPagina()
     {
-        
+        return this.pagina;
+    }
+    public int getDesplazamiento()
+    {
+        return this.desplazamiento;
+    }
+    public void setPagina(int pagina)
+    {
+        this.pagina = pagina;
+    }
+    public void setDesplazamiento(int desplazamiento)
+    {
+        this.desplazamiento = desplazamiento;
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-  
-    public string getDireccion()
-    {
-        return this.direccion;
-    }
-    public void setDireccion(string direccion)
-    {
-        this.direccion = direccion;
-    }
 }
 
 
