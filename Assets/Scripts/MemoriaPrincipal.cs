@@ -31,15 +31,23 @@ public class MemoriaPrincipal : MonoBehaviour
             direccionItem.transform.GetChild(2).GetComponent<Text>().text = $"{contadorEtiqueta:X2}";// etiqueta 5 bits
             direccionItem.transform.GetChild(3).GetComponent<Text>().text = $"{contadorPalabra:X1}";// palabra 3 bits
             direccionItem.transform.GetChild(4).GetComponent<Text>().text = $"{datoAleatorio:X2}";
-            direccionesMemoriaPrincipal.Add(new Tuple<int, int, int, int, int, GameObject>(i,i,i,i,datoAleatorio, direccionItem));
+            direccionesMemoriaPrincipal.Add(new Tuple<int, int, int, int, int, GameObject>(contadorMarcos,contadorDesplazamiento,contadorEtiqueta,contadorPalabra,datoAleatorio, direccionItem));
 
-            // set contadores
+            // set contadores dirección memoria caché
             if (contadorPalabra >= 0x7)
             {
                 contadorEtiqueta++;
                 contadorPalabra = 0x0;
             }
             contadorPalabra++;
+
+            // set contadores dirección memoria virtual
+            if (contadorDesplazamiento >= 0x1f)
+            {
+                contadorDesplazamiento = 0x0;
+                contadorMarcos++;
+            }
+            contadorDesplazamiento++;
         }
         Destroy(direccionTemplate);
         
