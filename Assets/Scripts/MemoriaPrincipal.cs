@@ -11,6 +11,7 @@ public class MemoriaPrincipal : MonoBehaviour
     private List<Tuple<int, int, int, int, int, GameObject>> direccionesMemoriaPrincipal;
     private GameObject direccionTemplate;
     [SerializeField] private int maximoDireccionableMP;
+    MemoriaCache memoriaCache= new MemoriaCache();
     private void Awake()
     {
         direccionesMemoriaPrincipal = new List<Tuple<int, int, int, int, int, GameObject>>();
@@ -30,19 +31,11 @@ public class MemoriaPrincipal : MonoBehaviour
             direccionesMemoriaPrincipal.Add(new Tuple<int, int, int, int, int, GameObject>(i,i,i,i,i, direccionItem));
         }
         Destroy(direccionTemplate);
-        
     }
-   
-    // Start is called before the first frame update
-    void Start()
-    {
-       
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
+    
+    public Tuple< Tuple<int, int, int, int>, Tuple<int, int, int, int>> BusquedaMemoriaPrincipal(int bloque){
         
+        return 
     }
 
 }
