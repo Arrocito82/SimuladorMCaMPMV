@@ -33,9 +33,22 @@ public class MemoriaPrincipal : MonoBehaviour
         Destroy(direccionTemplate);
     }
     
-    public Tuple< Tuple<int, int, int, int>, Tuple<int, int, int, int>> BusquedaMemoriaPrincipal(int bloque){
+
+    public Tuple<Tuple<int,int,int,int>, Tuple<int, int, int, int>> Leer(int bloque)
+    {
+        Tuple<int, int, int, int> datos = new Tuple<int, int, int, int>(0, 0, 0, 0);
+        return new Tuple<Tuple<int, int, int, int>, Tuple<int, int, int, int>>(datos, datos);
+    }
+    // Start is called before the first frame update
+    void Start()
+    {
+       
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
         
-        return 
     }
 
 }
