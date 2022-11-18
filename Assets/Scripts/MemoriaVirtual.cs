@@ -7,12 +7,12 @@ using Random = System.Random;
 
 public class MemoriaVirtual : MonoBehaviour
 {
-    private List<Tuple<int, int, GameObject>> direccionesMemoriaVirtual;
+    private List<Tuple<int, int, GameObject, int>> direccionesMemoriaVirtual; // página, desplazamiento, item, dato
     private GameObject direccionTemplate;
     [SerializeField] private int maximoDireccionableMV;
     private void Awake()
     {
-        direccionesMemoriaVirtual = new List<Tuple<int, int, GameObject>>();
+        direccionesMemoriaVirtual = new List<Tuple<int, int, GameObject, int>>();
         //recuperando el primer elemento que servira de template
         direccionTemplate = this.transform.GetChild(0).gameObject;
         /* 
@@ -29,11 +29,12 @@ public class MemoriaVirtual : MonoBehaviour
 
         for (int i=0x0; i< maximoDireccionableMV; i++)
         {
+            int datoAleatorio = dato.Next(0, 256);
             GameObject direccionItem = Instantiate(direccionTemplate, this.transform);
             direccionItem.transform.GetChild(0).GetComponent<Text>().text = $"{contadorPagina:X2}";
             direccionItem.transform.GetChild(1).GetComponent<Text>().text = $"{contadorDesplazamiento:X2}";
-            direccionItem.transform.GetChild(2).GetComponent<Text>().text = $"{dato.Next(0,256):X2}";
-            direccionesMemoriaVirtual.Add(new Tuple<int,int, GameObject>(contadorPagina, contadorDesplazamiento, direccionItem));
+            direccionItem.transform.GetChild(2).GetComponent<Text>().text = $"{datoAleatorio:X2}";
+            direccionesMemoriaVirtual.Add(new Tuple<int,int, GameObject,int>(contadorPagina, contadorDesplazamiento, direccionItem,datoAleatorio));
 
             // set contadores
             if (contadorDesplazamiento < 0x1f)
@@ -52,29 +53,19 @@ public class MemoriaVirtual : MonoBehaviour
         Destroy(direccionTemplate);
         
     }
-   
-    // Start is called before the first frame update
-    void Start()
+    public List<Tuple<int, int, int>> BusquedaMemoriaVirtual(int paginaIndex)// página, desplazamiento, dato
     {
-       
+        List<Tuple<int, int, int>>marcoObjetivo=new List<Tuple<int, int, int>>(); 
+        for (int i=0; i < this.direccionesMemoriaVirtual.Count; i++)
+        {
+            Tuple<int, int, GameObject, int> direccionActual = this.direccionesMemoriaVirtual[i];
+            if (direccionActual.Item1 == paginaIndex)
+            {
+                marcoObjetivo.Add(new Tuple<int, int, int>(direccionActual.Item1, direccionActual.Item2, direccionActual.Item4));
+            }
+        }
+        return marcoObjetivo;
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-    //public void addDireccionMemoriaVirtual(int pagina, int desplazamiento)
-    //{
 
-    //    DireccionMemoriaVirtual currentDireccion = new DireccionMemoriaVirtual(pagina, desplazamiento);
-    //    //direccionesMemoriaVirtual.Add(currentDireccion);// eliminando de la lista
-    //}
-    //public void deleteDireccionMemoriaVirtual(int pagina, int desplazamiento)
-    //{
-    //    DireccionMemoriaVirtual currentDireccion = new DireccionMemoriaVirtual(pagina, desplazamiento);
-
-    //    direccionesMemoriaVirtual.Remove(currentDireccion);// eliminando de la lista
-    //    //Destroy(this.transform.GetChild(index).gameObject);//probando eliminar un elemento del array del view
-    //}
 }

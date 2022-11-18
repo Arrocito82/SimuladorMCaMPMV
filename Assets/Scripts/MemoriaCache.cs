@@ -56,34 +56,53 @@ public class MemoriaCache : MonoBehaviour
         string bloqueString=this.bloque.text;
         int valueLinea = 0x0;
         int bloqueConv = 0x0;
+        Tuple<int, int, GameObject, Tuple<int, int, int, int>, Tuple<int, int, int, int>> lineaBuscada;
+        Tuple<int, int, GameObject, Tuple<int, int, int, int>, Tuple<int, int, int, int>> bloqueRecuperado;
+        GameObject direccionItemActualizado;
         try
         {
             valueLinea = int.Parse(lineaString, System.Globalization.NumberStyles.HexNumber);
             bloqueConv = int.Parse(bloqueString,System.Globalization.NumberStyles.HexNumber);
+        //Debug.Log(valueLinea);
             //Debug.Log($"{Convert.ToInt32(memoriaPrincipalControler.maximoDireccionableMP / tamanoBloque):X}");
             if(valueLinea>= maximoDireccionableMC)
             {
                 throw new Exception($"Línea {valueLinea:X} debe ser menor a {maximoDireccionableMC:X}");
             }
-            if (bloqueConv >= memoriaPrincipalControler.maximoDireccionableMP / tamanoBloque)
+            if (bloqueConv >= 0x80)
             {
-                throw new Exception($"Bloque {bloqueConv:X} debe ser menor a {memoriaPrincipalControler.maximoDireccionableMP / tamanoBloque:X}");
+                //el máximo de bloques es 32 decimal= 20 hexadecimal
+                throw new Exception($"Bloque {bloqueConv:X} debe ser menor a {0x80:X}");
             }
-            Tuple<int, int, GameObject, Tuple<int, int, int, int>, Tuple<int, int, int, int>>lineaBuscada= this.direccionMemoriaCache[valueLinea];
+            lineaBuscada= this.direccionMemoriaCache[valueLinea];
             if( bloqueConv==lineaBuscada.Item1)
             {
-                Debug.Log("Acierto");
-                Debug.Log(lineaBuscada);
+                Debug.Log("Acierto Memoria Caché");
+                Debug.Log(lineaBuscada);// es null
             }
             else // comprobando que el bloque si es válido
             {
-                Debug.Log("Fallo");
+                Debug.Log("Fallo Memoria Caché");
 
                 // recuperando línea cache de la memoria principal
-                Tuple<int, int, GameObject, Tuple<int, int, int, int>, Tuple<int, int, int, int>> bloqueRecuperado=this.BusquedaMemoriaPrincipalFake(bloqueConv);
+                bloqueRecuperado=this.BusquedaMemoriaPrincipalFake(bloqueConv);
                 // actualizando memoria cache
                 direccionMemoriaCache[bloqueRecuperado.Item2] = bloqueRecuperado;
                 // actualizando item en view
+/**
+                direccionItemActualizado = bloqueRecuperado.Item3;
+                direccionItemActualizado.transform.GetChild(0).GetComponent<Text>().text = $"{bloqueRecuperado.Item1:X1}";// asignando etiqueta
+                direccionItemActualizado.transform.GetChild(2).GetComponent<Text>().text = $"{bloqueRecuperado.Item4.Item1:X2}";// asignando dato 1
+                direccionItemActualizado.transform.GetChild(3).GetComponent<Text>().text = $"{bloqueRecuperado.Item4.Item2:X2}";
+                direccionItemActualizado.transform.GetChild(4).GetComponent<Text>().text = $"{bloqueRecuperado.Item4.Item3:X2}";
+                direccionItemActualizado.transform.GetChild(5).GetComponent<Text>().text = $"{bloqueRecuperado.Item4.Item4:X2}";
+                direccionItemActualizado.transform.GetChild(6).GetComponent<Text>().text = $"{bloqueRecuperado.Item5.Item1:X2}";
+                direccionItemActualizado.transform.GetChild(7).GetComponent<Text>().text = $"{bloqueRecuperado.Item5.Item2:X2}";
+                direccionItemActualizado.transform.GetChild(8).GetComponent<Text>().text = $"{bloqueRecuperado.Item5.Item3:X2}";
+                direccionItemActualizado.transform.GetChild(9).GetComponent<Text>().text = $"{bloqueRecuperado.Item5.Item4:X2}";
+                */
+
+
                 GameObject direccionItemNuevo = bloqueRecuperado.Item3;
                 direccionItemNuevo.transform.GetChild(0).GetComponent<Text>().text = $"{bloqueRecuperado.Item1:X1}";// asignando etiqueta
                 dato0.GetComponentInChildren<TMP_InputField>().text= $"{bloqueRecuperado.Item4.Item1:X2}";// asignando dato 1
@@ -94,8 +113,10 @@ public class MemoriaCache : MonoBehaviour
                 dato5.GetComponentInChildren<TMP_InputField>().text = $"{bloqueRecuperado.Item5.Item2:X2}";
                 dato6.GetComponentInChildren<TMP_InputField>().text = $"{bloqueRecuperado.Item5.Item3:X2}";
                 dato7.GetComponentInChildren<TMP_InputField>().text = $"{bloqueRecuperado.Item5.Item4:X2}";
+
             }
-        }catch(Exception e)
+        }
+        catch (Exception e)
         {
             Debug.Log($"Formato de Bloque o Línea Inválido, debe ser hexadecimal.\n{e.Message:s}");
         }
@@ -155,6 +176,7 @@ public class MemoriaCache : MonoBehaviour
         return bloque % maximoDireccionableMC;
     }
 
+
     //método para agregar la direccion de la memoria caché
     /* public void addDireccionMemoriaCache(string etiqueta, string bloque, string desplazamiento){
         GameObject direccionItem=Instantiate(direccionTemplate, this.transform);
@@ -165,4 +187,5 @@ public class MemoriaCache : MonoBehaviour
     public void deleteDireccionMemoriaCache(int index){
         Destroy(this.transform.GetChild(index).gameObject);
     } */
+
 }
