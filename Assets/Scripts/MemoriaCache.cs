@@ -58,6 +58,7 @@ public class MemoriaCache : MonoBehaviour
         {
             valueLinea = int.Parse(lineaString, System.Globalization.NumberStyles.HexNumber);
             bloqueConv = int.Parse(bloqueString,System.Globalization.NumberStyles.HexNumber);
+        //Debug.Log(valueLinea);
             //Debug.Log($"{Convert.ToInt32(memoriaPrincipalControler.maximoDireccionableMP / tamanoBloque):X}");
             if(valueLinea>= maximoDireccionableMC)
             {

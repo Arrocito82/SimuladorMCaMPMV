@@ -53,9 +53,18 @@ public class MemoriaVirtual : MonoBehaviour
         Destroy(direccionTemplate);
         
     }
-    public List<Tuple<int, int, int>> BusquedaMemoriaVirtual(int marco)// página, desplazamiento, dato
+    public List<Tuple<int, int, int>> BusquedaMemoriaVirtual(int paginaIndex)// página, desplazamiento, dato
     {
-        return new List<Tuple<int, int, int>>();
+        List<Tuple<int, int, int>>marcoObjetivo=new List<Tuple<int, int, int>>(); 
+        for (int i=0; i < this.direccionesMemoriaVirtual.Count; i++)
+        {
+            Tuple<int, int, GameObject, int> direccionActual = this.direccionesMemoriaVirtual[i];
+            if (direccionActual.Item1 == paginaIndex)
+            {
+                marcoObjetivo.Add(new Tuple<int, int, int>(direccionActual.Item1, direccionActual.Item2, direccionActual.Item4));
+            }
+        }
+        return marcoObjetivo;
     }
 
 
