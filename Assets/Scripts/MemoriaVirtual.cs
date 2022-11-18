@@ -7,12 +7,12 @@ using Random = System.Random;
 
 public class MemoriaVirtual : MonoBehaviour
 {
-    private List<Tuple<int, int, GameObject>> direccionesMemoriaVirtual;
+    private List<Tuple<int, int, GameObject, int>> direccionesMemoriaVirtual; // página, desplazamiento, item, dato
     private GameObject direccionTemplate;
     [SerializeField] private int maximoDireccionableMV;
     private void Awake()
     {
-        direccionesMemoriaVirtual = new List<Tuple<int, int, GameObject>>();
+        direccionesMemoriaVirtual = new List<Tuple<int, int, GameObject, int>>();
         //recuperando el primer elemento que servira de template
         direccionTemplate = this.transform.GetChild(0).gameObject;
         /* 
@@ -29,11 +29,12 @@ public class MemoriaVirtual : MonoBehaviour
 
         for (int i=0x0; i< maximoDireccionableMV; i++)
         {
+            int datoAleatorio = dato.Next(0, 256);
             GameObject direccionItem = Instantiate(direccionTemplate, this.transform);
             direccionItem.transform.GetChild(0).GetComponent<Text>().text = $"{contadorPagina:X2}";
             direccionItem.transform.GetChild(1).GetComponent<Text>().text = $"{contadorDesplazamiento:X2}";
-            direccionItem.transform.GetChild(2).GetComponent<Text>().text = $"{dato.Next(0,256):X2}";
-            direccionesMemoriaVirtual.Add(new Tuple<int,int, GameObject>(contadorPagina, contadorDesplazamiento, direccionItem));
+            direccionItem.transform.GetChild(2).GetComponent<Text>().text = $"{datoAleatorio:X2}";
+            direccionesMemoriaVirtual.Add(new Tuple<int,int, GameObject,int>(contadorPagina, contadorDesplazamiento, direccionItem,datoAleatorio));
 
             // set contadores
             if (contadorDesplazamiento < 0x1f)
@@ -52,6 +53,10 @@ public class MemoriaVirtual : MonoBehaviour
         Destroy(direccionTemplate);
         
     }
-   
+    public List<Tuple<int, int, int>> BusquedaMemoriaVirtual(int marco)// página, desplazamiento, dato
+    {
+        return new List<Tuple<int, int, int>>();
+    }
+
 
 }
