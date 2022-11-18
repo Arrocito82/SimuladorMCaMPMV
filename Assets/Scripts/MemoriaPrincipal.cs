@@ -9,7 +9,7 @@ public class MemoriaPrincipal : MonoBehaviour
 {
     //marco, desplazamiento, etiqueta, palabra, dato
     private List<Tuple<int, int, int, int, int, GameObject>> direccionesMemoriaPrincipal;
-    private List<Tuple<int,int,int,int>> gestionEmplazamientoLRU;//marco, uso, indice primer bloque, index posición primer bloque del marco
+    private List<Tuple<int,int,int,int>> gestionEmplazamientoLRU;//marco, uso, indice primer bloque, index posiciï¿½n primer bloque del marco
     private GameObject direccionTemplate;
     [SerializeField] public int maximoDireccionableMP;
     [SerializeField] private GameObject memoriaVirtual;
@@ -40,17 +40,20 @@ public class MemoriaPrincipal : MonoBehaviour
             direccionItem.transform.GetChild(4).GetComponent<Text>().text = $"{datoAleatorio:X2}"; // dato
             direccionesMemoriaPrincipal.Add(new Tuple<int, int, int, int, int, GameObject>(contadorMarcos,contadorDesplazamiento,contadorEtiqueta,contadorPalabra,datoAleatorio, direccionItem));
 
+
             contadorPalabra++;
-            // set contadores dirección memoria caché
+            // set contadores direcciï¿½n memoria cachï¿½
             if (contadorPalabra > 0x7)
+
             {
                 contadorEtiqueta++;
                 contadorPalabra = 0x0;
             }
 
             contadorDesplazamiento++;
-            // set contadores dirección memoria virtual
+            // set contadores direcciï¿½n memoria virtual
             if (contadorDesplazamiento > 0x1f)
+
             {
                 contadorDesplazamiento = 0x0;
                 // asignar uso
@@ -58,6 +61,7 @@ public class MemoriaPrincipal : MonoBehaviour
             }
         }
         Destroy(direccionTemplate);
+
         
 
     }
@@ -82,6 +86,7 @@ public class MemoriaPrincipal : MonoBehaviour
         }
         //Debug.Log(gestionEmplazamientoLRU.Count);
     }
+
 
     public Tuple<Tuple<int,int,int,int>, Tuple<int, int, int, int>> Leer(int bloque)
     {
@@ -148,12 +153,12 @@ public class MemoriaPrincipal : MonoBehaviour
 
  
     /**
-     * Este método tiene por proposito calcular en que indice inicia el bloque que buscan.
+     * Este mï¿½todo tiene por proposito calcular en que indice inicia el bloque que buscan.
      * Si el bloque esta cargado
      * entonces actualizar el indicador de uso de todos los marcos y retornar el indice donde inicia el bloque
      * sino 
-     * entonces hay que ir a buscar el marco completo (página) a la memoria virtual
-     * calcular en que posición se colocará dependiendo del indice de uso
+     * entonces hay que ir a buscar el marco completo (pï¿½gina) a la memoria virtual
+     * calcular en que posiciï¿½n se colocarï¿½ dependiendo del indice de uso
      * y luego actualizar el indicador de uso de todos los marcos y retornar el indice donde inicia el bloque
     */
     public void TLB(int bloque)
@@ -178,7 +183,7 @@ public class MemoriaPrincipal : MonoBehaviour
         else
         {
             //recuperar marco
-            // página, desplazamiento, dato
+            // pï¿½gina, desplazamiento, dato
             List<Tuple<int,int,int>>marcoRecuperado=this.memoriaVirtualControlador.BusquedaMemoriaVirtual(marco);
             //for(int i = 0;i< marcoRecuperado.Count; i++)
             //{
@@ -231,10 +236,10 @@ public class MemoriaPrincipal : MonoBehaviour
             Tuple<int, int, int,int> elemento = gestionEmplazamientoLRU[i];
             elemento = new Tuple<int, int, int,int>(elemento.Item1, elemento.Item2 + 1,elemento.Item3,elemento.Item4);
         }
-        // agregando el marco existente a la posición inicial
+        // agregando el marco existente a la posiciï¿½n inicial
         this.gestionEmplazamientoLRU.Insert(0, new Tuple<int, int,int,int>(marco, uso,indicePrimerBloque,posicionInicialMarco));
     }
-    // pone el marco en la posición inicial con uso = 1, e incrementa los usos de los demás marcos
+    // pone el marco en la posiciï¿½n inicial con uso = 1, e incrementa los usos de los demï¿½s marcos
     private void updateMarcos(int marco, int posicionActual)
     {
         int uso = 1;
@@ -248,11 +253,11 @@ public class MemoriaPrincipal : MonoBehaviour
             Tuple<int, int, int, int> elemento = gestionEmplazamientoLRU[i];
             elemento = new Tuple<int, int,int,int>(elemento.Item1, elemento.Item2 + 1,elemento.Item3,elemento.Item4);
         }
-        // agregando el marco existente a la posición inicial
+        // agregando el marco existente a la posiciï¿½n inicial
         this.gestionEmplazamientoLRU.Insert(0, new Tuple<int, int, int, int>(marco, uso,posicionPrimerBloque,posicionInicialMarco));
     }
 
-    //retorna si existe o no y si existe te dice la posición actual
+    //retorna si existe o no y si existe te dice la posiciï¿½n actual
     private Tuple<bool,int> existeMarco(int marco)
     {
         bool existe = false;
@@ -273,8 +278,8 @@ public class MemoriaPrincipal : MonoBehaviour
     public int menosUsado()
     {
         int  posicionInicialMarco= 0;
-        // verificando el tamaño de la lista de usos, debe ser menor a 8
-        // cual es el bloque más viejo?
+        // verificando el tamaï¿½o de la lista de usos, debe ser menor a 8
+        // cual es el bloque mï¿½s viejo?
         for (int i = 0; i < 8; i++)
         {
             Tuple<int, int, int,int> currentMarco = this.gestionEmplazamientoLRU[i];
@@ -282,7 +287,7 @@ public class MemoriaPrincipal : MonoBehaviour
             
                 if (currentMarco.Item1 == -1)
                 {
-                    //marco no asignado, esta es la última posición
+                    //marco no asignado, esta es la ï¿½ltima posiciï¿½n
                     posicionInicialMarco = currentMarco.Item4;
                     break;
                 }

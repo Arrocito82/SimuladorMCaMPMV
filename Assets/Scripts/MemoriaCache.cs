@@ -4,19 +4,24 @@ using UnityEngine;
 using UnityEngine.UI;
 using System;
 using System.Linq;
+using TMPro;
 
 public class MemoriaCache : MonoBehaviour
 {
     private List<Tuple<int, int, GameObject, Tuple<int, int, int, int>, Tuple<int, int, int, int>>> direccionMemoriaCache;
-    private GameObject direccionTemplate;
+    private GameObject direccionTemplate, newDireccion;
+
     [SerializeField] private int maximoDireccionableMC;
     public int tamanoBloque;
     [SerializeField] private GameObject botonVer;
     [SerializeField] private GameObject bloqueTextField;
     [SerializeField] private GameObject lineaTextField;
+    [SerializeField] private GameObject dato0, dato1, dato2,dato3, dato4, dato5, dato6, dato7;
     private Text bloque, linea;
+
     [SerializeField] private GameObject memoriaPrincipal;
     MemoriaPrincipal memoriaPrincipalControler;
+
     private void Awake()
     {
         memoriaPrincipalControler = memoriaPrincipal.GetComponent<MemoriaPrincipal>();
@@ -84,6 +89,7 @@ public class MemoriaCache : MonoBehaviour
                 // actualizando memoria cache
                 direccionMemoriaCache[bloqueRecuperado.Item2] = bloqueRecuperado;
                 // actualizando item en view
+/**
                 direccionItemActualizado = bloqueRecuperado.Item3;
                 direccionItemActualizado.transform.GetChild(0).GetComponent<Text>().text = $"{bloqueRecuperado.Item1:X1}";// asignando etiqueta
                 direccionItemActualizado.transform.GetChild(2).GetComponent<Text>().text = $"{bloqueRecuperado.Item4.Item1:X2}";// asignando dato 1
@@ -94,7 +100,19 @@ public class MemoriaCache : MonoBehaviour
                 direccionItemActualizado.transform.GetChild(7).GetComponent<Text>().text = $"{bloqueRecuperado.Item5.Item2:X2}";
                 direccionItemActualizado.transform.GetChild(8).GetComponent<Text>().text = $"{bloqueRecuperado.Item5.Item3:X2}";
                 direccionItemActualizado.transform.GetChild(9).GetComponent<Text>().text = $"{bloqueRecuperado.Item5.Item4:X2}";
+                */
 
+
+                GameObject direccionItemNuevo = bloqueRecuperado.Item3;
+                direccionItemNuevo.transform.GetChild(0).GetComponent<Text>().text = $"{bloqueRecuperado.Item1:X1}";// asignando etiqueta
+                dato0.GetComponentInChildren<TMP_InputField>().text= $"{bloqueRecuperado.Item4.Item1:X2}";// asignando dato 1
+                dato1.GetComponentInChildren<TMP_InputField>().text = $"{bloqueRecuperado.Item4.Item2:X2}";
+                dato2.GetComponentInChildren<TMP_InputField>().text = $"{bloqueRecuperado.Item4.Item3:X2}";
+                dato3.GetComponentInChildren<TMP_InputField>().text = $"{bloqueRecuperado.Item4.Item4:X2}";
+                dato4.GetComponentInChildren<TMP_InputField>().text = $"{bloqueRecuperado.Item5.Item1:X2}";
+                dato5.GetComponentInChildren<TMP_InputField>().text = $"{bloqueRecuperado.Item5.Item2:X2}";
+                dato6.GetComponentInChildren<TMP_InputField>().text = $"{bloqueRecuperado.Item5.Item3:X2}";
+                dato7.GetComponentInChildren<TMP_InputField>().text = $"{bloqueRecuperado.Item5.Item4:X2}";
 
             }
         }
@@ -102,6 +120,37 @@ public class MemoriaCache : MonoBehaviour
         {
             Debug.Log($"Formato de Bloque o Línea Inválido, debe ser hexadecimal.\n{e.Message:s}");
         }
+    }
+    public void Escribir(){
+        Tuple<int, int, GameObject, Tuple<int, int, int, int>, Tuple<int, int, int, int>> direccionMemoriaCacheNew;
+        newDireccion=this.transform.GetChild(0).gameObject;
+        GameObject direccionItemNuevo=Instantiate(newDireccion, this.transform);
+        string lineaString=this.linea.text;
+        string bloqueString=this.bloque.text;
+        int valueLinea = 0x0;
+        int bloqueConv = 0x0;
+        valueLinea = int.Parse(lineaString, System.Globalization.NumberStyles.HexNumber);
+        bloqueConv = int.Parse(bloqueString,System.Globalization.NumberStyles.HexNumber);
+        direccionMemoriaCacheNew = direccionMemoriaCache[valueLinea];
+        int dato0new = int.Parse(dato0.GetComponentInChildren<TMP_InputField>().text,System.Globalization.NumberStyles.HexNumber);
+        int dato1new = int.Parse(dato1.GetComponentInChildren<TMP_InputField>().text,System.Globalization.NumberStyles.HexNumber);
+        int dato2new = int.Parse(dato2.GetComponentInChildren<TMP_InputField>().text,System.Globalization.NumberStyles.HexNumber);
+        int dato3new = int.Parse(dato3.GetComponentInChildren<TMP_InputField>().text,System.Globalization.NumberStyles.HexNumber);
+        int dato4new = int.Parse(dato4.GetComponentInChildren<TMP_InputField>().text,System.Globalization.NumberStyles.HexNumber);
+        int dato5new = int.Parse(dato5.GetComponentInChildren<TMP_InputField>().text,System.Globalization.NumberStyles.HexNumber);
+        int dato6new = int.Parse(dato6.GetComponentInChildren<TMP_InputField>().text,System.Globalization.NumberStyles.HexNumber);
+        int dato7new = int.Parse(dato7.GetComponentInChildren<TMP_InputField>().text,System.Globalization.NumberStyles.HexNumber);
+        Tuple<int, int, int, int> datos1 = new Tuple<int, int, int, int>(dato0new, dato1new, dato2new, dato3new);
+        Tuple<int, int, int, int> datos2 = new Tuple<int, int, int, int>(dato4new, dato5new, dato6new, dato7new);
+        direccionMemoriaCache[valueLinea]=new Tuple<int, int, GameObject, Tuple<int, int, int, int>, Tuple<int, int, int, int>>(bloqueConv,valueLinea,direccionMemoriaCache[valueLinea].Item3,datos1, datos2);
+        direccionMemoriaCache[valueLinea].Item3.transform.GetChild(2).GetComponent<Text>().text =$"{dato0new:X}";
+        direccionMemoriaCache[valueLinea].Item3.transform.GetChild(3).GetComponent<Text>().text =$"{dato1new:X}";
+        direccionMemoriaCache[valueLinea].Item3.transform.GetChild(4).GetComponent<Text>().text =$"{dato2new:X}";
+        direccionMemoriaCache[valueLinea].Item3.transform.GetChild(5).GetComponent<Text>().text =$"{dato3new:X}";
+        direccionMemoriaCache[valueLinea].Item3.transform.GetChild(6).GetComponent<Text>().text =$"{dato4new:X}";
+        direccionMemoriaCache[valueLinea].Item3.transform.GetChild(7).GetComponent<Text>().text =$"{dato5new:X}";
+        direccionMemoriaCache[valueLinea].Item3.transform.GetChild(8).GetComponent<Text>().text =$"{dato6new:X}";
+        direccionMemoriaCache[valueLinea].Item3.transform.GetChild(9).GetComponent<Text>().text =$"{dato7new:X}";
     }
 
     public Tuple<int, int, GameObject, Tuple<int, int, int, int>, Tuple<int, int, int, int>> BusquedaMemoriaPrincipal(){
@@ -126,5 +175,17 @@ public class MemoriaCache : MonoBehaviour
         // Dado que hay 8 palabras por bloque y 8 líneas en la cache
         return bloque % maximoDireccionableMC;
     }
+
+
+    //método para agregar la direccion de la memoria caché
+    /* public void addDireccionMemoriaCache(string etiqueta, string bloque, string desplazamiento){
+        GameObject direccionItem=Instantiate(direccionTemplate, this.transform);
+        direccionItem.transform.GetChild(0).GetComponent<Text>().text = etiqueta;
+        direccionItem.transform.GetChild(1).GetComponent<Text>().text = bloque;
+        direccionItem.transform.GetChild(2).GetComponent<Text>().text = desplazamiento;
+    }
+    public void deleteDireccionMemoriaCache(int index){
+        Destroy(this.transform.GetChild(index).gameObject);
+    } */
 
 }
