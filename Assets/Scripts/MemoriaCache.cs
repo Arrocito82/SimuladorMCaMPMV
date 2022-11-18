@@ -59,9 +59,9 @@ public class MemoriaCache : MonoBehaviour
         Tuple<int, int, GameObject, Tuple<int, int, int, int>, Tuple<int, int, int, int>> lineaBuscada;
         Tuple<int, int, GameObject, Tuple<int, int, int, int>, Tuple<int, int, int, int>> bloqueRecuperado;
         GameObject direccionItemActualizado;
-        try
-        {
-            valueLinea = int.Parse(lineaString, System.Globalization.NumberStyles.HexNumber);
+        //try
+        //{
+        valueLinea = int.Parse(lineaString, System.Globalization.NumberStyles.HexNumber);
             bloqueConv = int.Parse(bloqueString,System.Globalization.NumberStyles.HexNumber);
         //Debug.Log(valueLinea);
             //Debug.Log($"{Convert.ToInt32(memoriaPrincipalControler.maximoDireccionableMP / tamanoBloque):X}");
@@ -89,7 +89,7 @@ public class MemoriaCache : MonoBehaviour
                 // actualizando memoria cache
                 direccionMemoriaCache[bloqueRecuperado.Item2] = bloqueRecuperado;
                 // actualizando item en view
-/**
+
                 direccionItemActualizado = bloqueRecuperado.Item3;
                 direccionItemActualizado.transform.GetChild(0).GetComponent<Text>().text = $"{bloqueRecuperado.Item1:X1}";// asignando etiqueta
                 direccionItemActualizado.transform.GetChild(2).GetComponent<Text>().text = $"{bloqueRecuperado.Item4.Item1:X2}";// asignando dato 1
@@ -100,7 +100,7 @@ public class MemoriaCache : MonoBehaviour
                 direccionItemActualizado.transform.GetChild(7).GetComponent<Text>().text = $"{bloqueRecuperado.Item5.Item2:X2}";
                 direccionItemActualizado.transform.GetChild(8).GetComponent<Text>().text = $"{bloqueRecuperado.Item5.Item3:X2}";
                 direccionItemActualizado.transform.GetChild(9).GetComponent<Text>().text = $"{bloqueRecuperado.Item5.Item4:X2}";
-                */
+                
 
 
                 GameObject direccionItemNuevo = bloqueRecuperado.Item3;
@@ -115,11 +115,11 @@ public class MemoriaCache : MonoBehaviour
                 dato7.GetComponentInChildren<TMP_InputField>().text = $"{bloqueRecuperado.Item5.Item4:X2}";
 
             }
-        }
-        catch (Exception e)
-        {
-            Debug.Log($"Formato de Bloque o Línea Inválido, debe ser hexadecimal.\n{e.Message:s}");
-        }
+        //}
+        //catch (Exception e)
+        //{
+        //    Debug.Log($"Formato de Bloque o Línea Inválido, debe ser hexadecimal.\n{e.Message:s}");
+        //}
     }
     public void Escribir(){
         Tuple<int, int, GameObject, Tuple<int, int, int, int>, Tuple<int, int, int, int>> direccionMemoriaCacheNew;
