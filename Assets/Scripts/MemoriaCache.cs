@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using System;
 using System.Linq;
+using TMPro;
 
 public class MemoriaCache : MonoBehaviour
 {
@@ -14,6 +15,7 @@ public class MemoriaCache : MonoBehaviour
     [SerializeField] private GameObject botonVer;
     [SerializeField] private GameObject bloqueTextField;
     [SerializeField] private GameObject lineaTextField;
+    [SerializeField] private GameObject dato0, dato1, dato2,dato3, dato4, dato5, dato6, dato7;
     private Text bloque, linea;
 
     [SerializeField] private GameObject memoriaPrincipal;
@@ -83,14 +85,14 @@ public class MemoriaCache : MonoBehaviour
                 // actualizando item en view
                 GameObject direccionItemActualizado = bloqueRecuperado.Item3;
                 direccionItemActualizado.transform.GetChild(0).GetComponent<Text>().text = $"{bloqueRecuperado.Item1:X1}";// asignando etiqueta
-                direccionItemActualizado.transform.GetChild(2).GetComponent<Text>().text = $"{bloqueRecuperado.Item4.Item1:X2}";// asignando dato 1
-                direccionItemActualizado.transform.GetChild(3).GetComponent<Text>().text = $"{bloqueRecuperado.Item4.Item2:X2}";
-                direccionItemActualizado.transform.GetChild(4).GetComponent<Text>().text = $"{bloqueRecuperado.Item4.Item3:X2}";
-                direccionItemActualizado.transform.GetChild(5).GetComponent<Text>().text = $"{bloqueRecuperado.Item4.Item4:X2}";
-                direccionItemActualizado.transform.GetChild(6).GetComponent<Text>().text = $"{bloqueRecuperado.Item5.Item1:X2}";
-                direccionItemActualizado.transform.GetChild(7).GetComponent<Text>().text = $"{bloqueRecuperado.Item5.Item2:X2}";
-                direccionItemActualizado.transform.GetChild(8).GetComponent<Text>().text = $"{bloqueRecuperado.Item5.Item3:X2}";
-                direccionItemActualizado.transform.GetChild(9).GetComponent<Text>().text = $"{bloqueRecuperado.Item5.Item4:X2}";
+                dato0.GetComponentInChildren<TMP_InputField>().text= $"{bloqueRecuperado.Item4.Item1:X2}";// asignando dato 1
+                dato1.GetComponentInChildren<TMP_InputField>().text = $"{bloqueRecuperado.Item4.Item2:X2}";
+                dato2.GetComponentInChildren<TMP_InputField>().text = $"{bloqueRecuperado.Item4.Item3:X2}";
+                dato3.GetComponentInChildren<TMP_InputField>().text = $"{bloqueRecuperado.Item4.Item4:X2}";
+                dato4.GetComponentInChildren<TMP_InputField>().text = $"{bloqueRecuperado.Item5.Item1:X2}";
+                dato5.GetComponentInChildren<TMP_InputField>().text = $"{bloqueRecuperado.Item5.Item2:X2}";
+                dato6.GetComponentInChildren<TMP_InputField>().text = $"{bloqueRecuperado.Item5.Item3:X2}";
+                dato7.GetComponentInChildren<TMP_InputField>().text = $"{bloqueRecuperado.Item5.Item4:X2}";
 
 
             }
@@ -99,7 +101,9 @@ public class MemoriaCache : MonoBehaviour
             Debug.Log($"Formato de Bloque o Línea Inválido, debe ser hexadecimal.\n{e.Message:s}");
         }
     }
+    public void Escribir(){
 
+    }
 
     public Tuple<int, int, GameObject, Tuple<int, int, int, int>, Tuple<int, int, int, int>> BusquedaMemoriaPrincipal(){
         direccionTemplate=this.transform.GetChild(0).gameObject;
